@@ -4,7 +4,7 @@ from pathlib import Path
 LAST_PLAYED_PATH = Path("app/data/last_played.json")
 
 
-def save_last_played(data):
+def load_last_played(data):
     LAST_PLAYED_PATH.parent.mkdir(parents=True, exist_ok=True)
 
     LAST_PLAYED_PATH.write_text(json.dumps(data))

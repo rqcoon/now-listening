@@ -58,3 +58,5 @@ env.bak/
 venv.bak/
 
 tempCodeRunnerFile.py
+
+app/data/*

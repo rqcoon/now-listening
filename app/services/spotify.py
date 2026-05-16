@@ -3,8 +3,8 @@ import time, requests
 from app.core.token_store import load_tokens, save_tokens
 from app.core.config import Config
 
-def get_access_token():
-    tokens = load_tokens()
+def get_access_token(token_provider = load_tokens):
+    tokens = token_provider()
 
     if not tokens:
         raise Exception("No spotify tokens found")
