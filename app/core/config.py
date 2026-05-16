@@ -9,3 +9,4 @@ class Config:
     SPOTIFY_REDIRECT_URI = os.getenv("SPOTIFY_REDIRECT_URI")
     SPOTIFY_SCOPES = os.getenv("SPOTIFY_SCOPES").split()
     ORIGINS = os.getenv("ORIGINS").split()
+    TOKEN_URL = os.getenv("TOKEN_URL")
