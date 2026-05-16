@@ -38,9 +38,9 @@ def now_listening():
 
     data = response.json()
 
-    item = data.get("item") or {}
+    item = data.get("item")
 
-    if not item or item.get("type") != "track":
+    if not item:
         last = load_last_played()
         return {
             "is_playing": False,
@@ -50,15 +50,16 @@ def now_listening():
     progress_ms = data.get("progress_ms", 0)
     duration_ms = item.get("duration_ms", 0) if item else 0
 
-    payload = {
-        "is_playing": data.get("is_playing", False),
-        "track": item.get("name"),
-        "artist": ", ".join(a.get("name", "") for a in item.get("artists", [])),
-        "album": item.get("album", {}).get("name"),
-        "spotify_url": item.get("external_urls", {}).get("spotify"),
+    payload =  {
+        "is_playing": data.get("is_playing"),
+        "track": item["name"],
+        "artist": ", ".join(a["name"] for a in item["artists"]),
+        "album": item["album"]["name"],
+        "spotify_url": item["external_urls"]["spotify"],
         "progress_ms": progress_ms,
         "duration_ms": duration_ms,
         "progress_percent": round((progress_ms / duration_ms) * 100, 2) if duration_ms else 0,
+
         "timestamp": int(time.time())
     }
 

@@ -4,10 +4,14 @@ from pathlib import Path
 LAST_PLAYED_PATH = Path("app/data/last_played.json")
 
 
-def load_last_played(data):
-    LAST_PLAYED_PATH.parent.mkdir(parents=True, exist_ok=True)
+def load_last_played():
+    if not LAST_PLAYED_PATH.exists():
+        return None
 
-    LAST_PLAYED_PATH.write_text(json.dumps(data))
+    try:
+        return json.loads(LAST_PLAYED_PATH.read_text())
+    except json.JSONDecodeError:
+        return None
 
 def save_last_played(data):
     LAST_PLAYED_PATH.parent.mkdir(parents=True, exist_ok=True)
