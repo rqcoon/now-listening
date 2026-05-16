@@ -32,6 +32,8 @@ jobs:
           SPOTIFY_CLIENT_SECRET: test
           SPOTIFY_REDIRECT_URI: http://localhost/callback
           SPOTIFY_SCOPES: user-read-playback-state user-read-currently-playing
+          ORIGINS: http://localhost
+          TOKEN_URL: test
         run: pytest -v
 
   build:
