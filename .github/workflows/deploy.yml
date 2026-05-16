@@ -27,6 +27,11 @@ jobs:
           pip install pytest pytest-mock httpx
 
       - name: Run unit + integration tests
+        env: 
+          SPOTIFY_CLIENT_ID: test
+          SPOTIFY_CLIENT_SECRET: test
+          SPOTIFY_REDIRECT_URI: http://localhost/callback
+          SPOTIFY_SCOPES: user-read-playback-state user-read-currently-playing
         run: pytest -v
 
   build:

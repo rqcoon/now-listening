@@ -6,7 +6,7 @@ from app.routes import auth, now_listening
 app = FastAPI(title="Now Listening API", version="0.1")
 
 origins = [
-    Config.ORIGINS # todo: replace this with domain specified in .env
+    Config.ORIGINS
 ]
 
 app.add_middleware(
