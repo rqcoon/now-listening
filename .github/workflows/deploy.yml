@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Integration Tests
 
 on:
   push:
@@ -35,35 +35,3 @@ jobs:
           ORIGINS: http://localhost
           TOKEN_URL: test
         run: pytest -v
-
-  build:
-    name: Build Docker Image
-    runs-on: ubuntu-latest
-    needs: test
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Build Docker image
-        run: docker build -t listener-api .
-
-  deploy:
-    name: Deploy to EC2
-    runs-on: ubuntu-latest
-    needs: [test, build]
-
-    if: github.ref == 'refs/heads/main'
-
-    steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            cd ~/listener-api
-            git pull origin main
-            docker compose down
-            docker compose up -d --build
